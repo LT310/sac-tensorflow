@@ -14,6 +14,7 @@ from sac.misc import tf_utils
 
 EPS = 1e-6
 
+
 class GMMPolicy(NNPolicy, Serializable):
     """Gaussian Mixture Model policy"""
     def __init__(self, env_spec, K=2, hidden_layer_sizes=(100, 100), reg=1e-3,
@@ -46,7 +47,6 @@ class GMMPolicy(NNPolicy, Serializable):
         # in which case one should use sac.policies.GaussianPolicy
         assert not reparameterize 
         self._reparameterize = reparameterize
-
 
         self.name = name
         self.build()
@@ -222,3 +222,15 @@ class GMMPolicy(NNPolicy, Serializable):
         logger.record_tabular('log_pi_mean', np.mean(log_pis))
         logger.record_tabular('log_pi_max', np.max(log_pis))
         logger.record_tabular('log_pi_min', np.min(log_pis))
+
+
+
+if __name__ == "__main__":
+    policy = GMMPolicy(
+        env_spec=env.spec,
+        K=2,
+        hidden_layer_sizes=(M, M),
+        reparameterize=False,
+        qf=None,
+        reg=1e-3,
+    )

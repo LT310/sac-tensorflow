@@ -268,7 +268,7 @@ SAMPLER_PARAMS = {
 }
 
 RUN_PARAMS_BASE = {
-    'seed': [1,2,3,4,5],
+    'seed': [1, 2, 3, 4, 5],
     'snapshot_mode': 'gap',
     'snapshot_gap': 1000,
     'sync_pkl': True,
@@ -342,11 +342,13 @@ TASKS = {
     ],
 }
 
+
 def parse_domain_and_task(env_name):
     domain = next(domain for domain in DOMAINS if domain in env_name)
     domain_tasks = TASKS[domain]
     task = next((task for task in domain_tasks if task in env_name), 'default')
     return domain, task
+
 
 def get_variants(domain, task, policy):
     params = {

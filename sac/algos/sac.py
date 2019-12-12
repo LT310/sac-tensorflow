@@ -1,12 +1,9 @@
 from numbers import Number
-
 import numpy as np
 import tensorflow as tf
-
 from rllab.core.serializable import Serializable
 from rllab.misc import logger
 from rllab.misc.overrides import overrides
-
 from .base import RLAlgorithm
 
 
@@ -82,7 +79,6 @@ class SAC(RLAlgorithm, Serializable):
             vf,
             pool,
             plotter=None,
-
             lr=3e-3,
             scale_reward=1,
             discount=0.99,
@@ -90,7 +86,6 @@ class SAC(RLAlgorithm, Serializable):
             target_update_interval=1,
             action_prior='uniform',
             reparameterize=False,
-
             save_full_state=False,
     ):
         """
@@ -173,7 +168,6 @@ class SAC(RLAlgorithm, Serializable):
             except tf.errors.FailedPreconditionError:
                 uninit_vars.append(var)
         self._sess.run(tf.variables_initializer(uninit_vars))
-
 
     @overrides
     def train(self):
@@ -321,8 +315,7 @@ class SAC(RLAlgorithm, Serializable):
         policy_regularization_loss = tf.reduce_sum(
             policy_regularization_losses)
 
-        policy_loss = (policy_kl_loss
-                       + policy_regularization_loss)
+        policy_loss = (policy_kl_loss + policy_regularization_loss)
 
         # We update the vf towards the min of two Q-functions in order to
         # reduce overestimation bias from function approximation error.

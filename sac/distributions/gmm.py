@@ -92,6 +92,7 @@ class GMM(object):
         # Create p(x|z).
         with tf.variable_scope('p'):
             log_ws_t, xz_mus_t, xz_log_sigs_t = self._create_p_xz_params()
+
             # (N x K), (N x K x Dx), (N x K x Dx)
             xz_sigs_t = tf.exp(xz_log_sigs_t)
 
@@ -114,7 +115,9 @@ class GMM(object):
             # log p(x|z)
             log_p_xz_t = self._create_log_gaussian(
                 xz_mus_t, xz_log_sigs_t, x_t[:, None, :]
-            )  # N x K
+            )
+
+            # N x K
 
             # log p(x)
             log_p_x_t = tf.reduce_logsumexp(log_p_xz_t + log_ws_t, axis=1)
@@ -159,3 +162,7 @@ class GMM(object):
     @property
     def N_t(self):
         return self._N_pl
+
+
+if __name__ == "__main__":
+

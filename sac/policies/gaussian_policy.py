@@ -14,6 +14,7 @@ from sac.misc import tf_utils
 
 EPS = 1e-6
 
+
 class GaussianPolicy(NNPolicy, Serializable):
     def __init__(self, env_spec, hidden_layer_sizes=(100, 100), reg=1e-3,
                  squash=True, reparameterize=True, name='gaussian_policy'):
